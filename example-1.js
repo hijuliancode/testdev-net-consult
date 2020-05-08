@@ -1,18 +1,71 @@
 import {createAll, cleanConsole} from './data';
 const companies = createAll();
+let SORTED_COMPANIES = [];
 
 cleanConsole(1, companies);
-console.log('---- EXAMPLE 1 --- ', 'Put here your function');
+getCompanies(companies)
+    .then((companies) => {
+      SORTED_COMPANIES = companies.map((company) => {
+        return sortUsersByName(company.users);
+      });
+      console.log(`SORTED_COMPANIES`, SORTED_COMPANIES);
+    })
+    .catch((error) => {
+    });
+
+function getCompanies(companies) {
+  return new Promise((resolve, reject) => {
+    companies = sortCompaniesByTotalUsers(companies);
+    for (const companie of companies) {
+      const {users} = companie;
+      companie.name = toTitleCase(companie.name);
+      companie.users = fixUsersName(users);
+    }
+    if (companies) {
+      resolve(companies);
+    } else {
+      reject(err);
+    }
+  });
+};
+
+function fixUsersName(users) {
+  return users.map((user) => {
+    const data = {
+      firstName: !user.firstName ? ' ' : user.firstName,
+      lastName: !user.lastName ? ' ' : user.lastName,
+    };
+    return {
+      ...user,
+      firstName: toTitleCase(data.firstName),
+      lastName: toTitleCase(data.lastName),
+    };
+  });
+}
+
+function toTitleCase(str) {
+  return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+}
+
+function sortCompaniesByTotalUsers(companies) {
+  return companies.sort((a, b) => parseFloat(b.usersLength) - parseFloat(a.usersLength));
+}
+
+function sortUsersByName(users) {
+  return users.sort(function(a, b) {
+    return a.firstName.localeCompare(b.firstName);
+  });
+}
 
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL
 
-// Crear una función tomando la variable "companies" como parámetro y reemplazando
+// ✔ Crear una función tomando la variable "companies" como parámetro y reemplazando
 // todos los valores "undefined" en "usuarios" por un string vacío.
-// El nombre de cada "company" debe tener una letra mayúscula al principio, así como
-// el apellido y el nombre de cada "user".
-// Las "companies" deben ordenarse por su total de "user" (orden decreciente)
-// y los "users" de cada "company" deben aparecer en orden alfabético.
+// ✔ El nombre de cada "company" debe tener una letra mayúscula al principio, así como
+// ✔ el apellido y el nombre de cada "user".
+// ✔ Las "companies" deben ordenarse por su total de "user" (orden decreciente)
+// ✔ y los "users" de cada "company" deben aparecer en orden alfabético.
 
 // -----------------------------------------------------------------------------
 // INSTRUCTIONS IN ENGLISH
