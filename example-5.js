@@ -1,8 +1,44 @@
 import {cleanConsole, createAll} from './data';
 const companies = createAll();
+import {createListOfUsers} from './example-4';
 
 cleanConsole(5, companies);
-console.log('---- EXAMPLE 5 --- ', 'Put here your function');
+console.log(getCompaniesUpdate(createListOfUsers(companies)));
+function getCompaniesUpdate(users) {
+  const data = {
+    size: users.length,
+    average: getAverages(getAgesOfUsers(users)),
+    hasCar: getUsersWithCar(users).length,
+    averageWithCar: getAverages(getAgesOfUsersWithCar(users)),
+  };
+
+  console.log('getUsersWithCar(users)', getUsersWithCar(users));
+  console.log('data', data);
+  return companies;
+}
+
+function getAgesOfUsers(users) {
+  return users.map((user) => {
+    return user.age;
+  });
+}
+
+function getAgesOfUsersWithCar(users) {
+  return users.map((user) => {
+    return user.age;
+  });
+}
+
+function getAverages(arr) {
+  const count = arr.length;
+  arr = arr.reduce((previous, current) => current += previous);
+  arr /= count;
+  return Math.floor(arr);
+}
+
+function getUsersWithCar(users) {
+  return users.filter((user) => user.car);
+}
 
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL

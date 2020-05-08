@@ -2,9 +2,9 @@ import {cleanConsole, createAll} from './data';
 const companies = createAll();
 
 cleanConsole(4, companies);
-console.log(getCompanies(companies));
+console.log(createListOfUsers(companies));
 
-function getCompanies(companies) {
+export function createListOfUsers(companies) {
   const users = [];
   for (const company of companies) {
     company.users.forEach((user) => {
