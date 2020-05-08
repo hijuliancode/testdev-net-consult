@@ -6,11 +6,12 @@ cleanConsole(1, companies);
 getCompanies(companies)
     .then((companies) => {
       SORTED_COMPANIES = companies.map((company) => {
-        return sortUsersByName(company.users);
+        return {
+          ...company,
+          users: sortUsersByName(company.users),
+        };
       });
       console.log(`SORTED_COMPANIES`, SORTED_COMPANIES);
-    })
-    .catch((error) => {
     });
 
 function getCompanies(companies) {
