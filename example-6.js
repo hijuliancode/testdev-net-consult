@@ -3,7 +3,42 @@ import {cleanConsole, createAll} from './data';
 const companies = createAll();
 
 cleanConsole(6, companies);
-console.log('---- EXAMPLE 6 --- ', 'Put here your function');
+console.log(createUsersList(companies));
+
+function createUsersList(companies) {
+  const usersList = {};
+
+  for (const company of companies) {
+    company.users.forEach((user) => {
+      const username = createUsername(`${user.firstName} ${user.lastName} ${user.age}`);
+      usersList[username] = user.car;
+    });
+  }
+
+  return usersList;
+}
+
+function createUsername(username) {
+  let str = '';
+  str = removeSpecialCharacters(username);
+  str = camelize(`car By ${str}`);
+  return str;
+}
+
+// Helpers
+function removeSpecialCharacters(str) {
+  return str.replace(/[^a-zA-Z0-9 ]/g, '');
+}
+function camelize(str) {
+  return str.split(' ').map((word, index) => {
+    if (index == 0) {
+      return word.toLowerCase();
+    }
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  })
+      .join('');
+}
+
 
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL
