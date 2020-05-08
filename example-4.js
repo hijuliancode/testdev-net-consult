@@ -2,7 +2,21 @@ import {cleanConsole, createAll} from './data';
 const companies = createAll();
 
 cleanConsole(4, companies);
-console.log('---- EXAMPLE 4 --- ', 'Put here your function');
+console.log(getCompanies(companies));
+
+function getCompanies(companies) {
+  const users = [];
+  for (const company of companies) {
+    company.users.forEach((user) => {
+      user.company = company.name;
+      users.push(user);
+    });
+  }
+  users.sort((a, b) => {
+    return b.age - a.age;
+  });
+  return users;
+}
 
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL
