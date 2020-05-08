@@ -2,7 +2,22 @@ import {cleanConsole, createAll} from './data';
 const companies = createAll();
 
 cleanConsole(2, companies);
-console.log('---- EXAMPLE 2 --- ', 'Put here your function');
+console.log(getCompanies(companies, true));
+console.log(getCompanies(companies, false));
+
+function getCompanies(companies, hasCar) {
+  const listOfCompaniesCar = companies.map((company) => {
+    return analizeCompany(company, hasCar);
+  });
+  return listOfCompaniesCar;
+}
+function analizeCompany(company, hasCar) {
+  return company.users.filter((user) => {
+    if (user.car === hasCar) {
+      return user;
+    }
+  });
+}
 
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL
