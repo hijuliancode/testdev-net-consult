@@ -59,7 +59,6 @@ function part3(id, companies) {
   return company;
 }
 function part4(companyId, newUser, companies, userId) {
-  console.log('LALALAND', userId);
   companies.forEach((company) => {
     if (company.id === companyId) {
       company.users.unshift({ // Add at the 1st position
@@ -86,7 +85,6 @@ function part6(companyId, userId, companies) {
 function part7() {}
 function part8() {}
 function part9(companyFrom, companyTo, userId, companies) {
-  console.log('A =>', companies);
   let user;
   companies.forEach((company) => {
     if (companyFrom === company.id) {
@@ -101,8 +99,6 @@ function part9(companyFrom, companyTo, userId, companies) {
       company.usersLength = company.users.length;
     }
   });
-  console.log('B =>', companies);
-  console.log('user =>', user);
 }
 
 // -----------------------------------------------------------------------------
