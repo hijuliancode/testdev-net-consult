@@ -14,7 +14,7 @@ const part4NewUser = {
 };
 console.log('---- EXAMPLE 7 part 4 --- ', part4(1, part4NewUser, companies));
 console.log('---- EXAMPLE 7 part 5 --- ', part5());
-console.log('---- EXAMPLE 7 part 6 --- ', part6());
+console.log('---- EXAMPLE 7 part 6 --- ', part6(0, 1, companies));
 console.log('---- EXAMPLE 7 part 7 --- ', part7());
 console.log('---- EXAMPLE 7 part 8 --- ', part8());
 console.log('---- EXAMPLE 7 part 9 --- ', part9());
@@ -71,7 +71,17 @@ function part4(companyId, newUser, companies) {
   return companies;
 }
 function part5() {}
-function part6() {}
+function part6(companyId, userId, companies) {
+  for (const company of companies) {
+    if (company.id === companyId) {
+      company.users = company.users.filter((user) => {
+        return user.id != userId;
+      });
+      company.usersLength = company.users.length;
+    }
+  }
+  return companies;
+}
 function part7() {}
 function part8() {}
 function part9() {}
