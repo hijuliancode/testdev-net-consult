@@ -17,7 +17,7 @@ console.log('---- EXAMPLE 7 part 5 --- ', part5());
 console.log('---- EXAMPLE 7 part 6 --- ', part6(0, 1, companies));
 console.log('---- EXAMPLE 7 part 7 --- ', part7());
 console.log('---- EXAMPLE 7 part 8 --- ', part8());
-console.log('---- EXAMPLE 7 part 9 --- ', part9());
+console.log('---- EXAMPLE 7 part 9 --- ', part9(0, 1, 4, companies));
 
 function part1(id, companies) {
   const companySelected = companies.find((elm) => {
@@ -58,12 +58,13 @@ function part3(id, companies) {
       });
   return company;
 }
-function part4(companyId, newUser, companies) {
+function part4(companyId, newUser, companies, userId) {
+  console.log('LALALAND', userId);
   companies.forEach((company) => {
     if (company.id === companyId) {
       company.users.unshift({ // Add at the 1st position
         ...newUser,
-        id: new Date().valueOf(),
+        id: userId ? userId : (new Date().valueOf()),
       });
       company.usersLength = company.users.length;
     }
@@ -84,7 +85,25 @@ function part6(companyId, userId, companies) {
 }
 function part7() {}
 function part8() {}
-function part9() {}
+function part9(companyFrom, companyTo, userId, companies) {
+  console.log('A =>', companies);
+  let user;
+  companies.forEach((company) => {
+    if (companyFrom === company.id) {
+      user = company.users.find((elm) => {
+        return elm.id === userId;
+      });
+      part6(companyFrom, userId, companies);
+      company.usersLength = company.users.length;
+    }
+    if (companyTo === company.id) {
+      part4(companyTo, user, companies, userId);
+      company.usersLength = company.users.length;
+    }
+  });
+  console.log('B =>', companies);
+  console.log('user =>', user);
+}
 
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL
