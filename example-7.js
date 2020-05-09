@@ -3,15 +3,78 @@ import {cleanConsole, createAll} from './data';
 const companies = createAll();
 
 cleanConsole(7, companies);
-console.log('---- EXAMPLE 7 part 1 --- ', 'Put here your function');
-console.log('---- EXAMPLE 7 part 2 --- ', 'Put here your function');
-console.log('---- EXAMPLE 7 part 3 --- ', 'Put here your function');
-console.log('---- EXAMPLE 7 part 4 --- ', 'Put here your function');
-console.log('---- EXAMPLE 7 part 5 --- ', 'Put here your function');
-console.log('---- EXAMPLE 7 part 6 --- ', 'Put here your function');
-console.log('---- EXAMPLE 7 part 7 --- ', 'Put here your function');
-console.log('---- EXAMPLE 7 part 8 --- ', 'Put here your function');
-console.log('---- EXAMPLE 7 part 9 --- ', 'Put here your function');
+console.log('---- EXAMPLE 7 part 1 --- ', part1(1, companies));
+console.log('---- EXAMPLE 7 part 2 --- ', part2(1, companies));
+console.log('---- EXAMPLE 7 part 3 --- ', part3(1, companies));
+const part4NewUser = {
+  firstName: 'Juan',
+  lastName: 'Delgado',
+  age: 35,
+  car: true,
+};
+console.log('---- EXAMPLE 7 part 4 --- ', part4(1, part4NewUser, companies));
+console.log('---- EXAMPLE 7 part 5 --- ', part5());
+console.log('---- EXAMPLE 7 part 6 --- ', part6());
+console.log('---- EXAMPLE 7 part 7 --- ', part7());
+console.log('---- EXAMPLE 7 part 8 --- ', part8());
+console.log('---- EXAMPLE 7 part 9 --- ', part9());
+
+function part1(id, companies) {
+  const companySelected = companies.find((elm) => {
+    return elm.id === id;
+  });
+  if (!companySelected) {
+    return 'The selected company does not exist';
+  }
+  return companySelected.name;
+}
+
+function part2(id, companies) {
+  return companies.filter((company) => {
+    return company.id !== id ? company : null;
+  });
+}
+
+function part3(id, companies) {
+  const companyUrl =`companies/${id}`;
+  const company = fetch(companyUrl, {
+    method: 'PATCH',
+    body: JSON.stringify( {
+      completed: true,
+    }),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    }})
+      .then((response) => response.json())
+      .then((json) => {
+        const data = {
+          id: json.id,
+          isOpen: json.isOpen,
+          name: json.name,
+          usersLength: json.usersLength,
+        };
+        console.log(data);
+        return data;
+      });
+  return company;
+}
+function part4(companyId, newUser, companies) {
+  companies.forEach((company) => {
+    if (company.id === companyId) {
+      company.users.unshift({ // Add at the 1st position
+        ...newUser,
+        id: new Date().valueOf(),
+      });
+      company.usersLength = company.users.length;
+    }
+  });
+  return companies;
+}
+function part5() {}
+function part6() {}
+function part7() {}
+function part8() {}
+function part9() {}
 
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL
